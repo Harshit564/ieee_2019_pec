@@ -6,22 +6,32 @@ class SponsorsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Sponsors'),
-          centerTitle: true,
-        ),
-        body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 20.0,
-            crossAxisSpacing: 10.0,
-            childAspectRatio: 3 / 2,
-          ),
-          itemBuilder: (context, int position){
-            return GridTile(
-              child: Image.asset('assets/images/image1.jpeg'),
-            );
-          },
-        ));
+      appBar: AppBar(
+        title: Text('Sponsors'),
+        backgroundColor: Color(0xFF01588D),
+        centerTitle: true,
+      ),
+      body: GridView.count(
+        crossAxisCount: 2,
+        children: List.generate(5, (index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GridTile(
+              child: Card(
+                color: Color(0xFF01588D),
+                child: Center(
+                  child: Text(
+                    'News $index',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        }),
+      ),
+    );
   }
 }

@@ -11,10 +11,21 @@ class OurFamily extends StatelessWidget {
       appBar: AppBar(
         title: Text('Our Family'),
         centerTitle: true,
+        backgroundColor: Color(0xFF01588D),
       ),
-      body: Center(
-        child: Image.asset("assets/images/ieee_mashup.jpeg",
-        fit:BoxFit.contain,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(
+              "assets/images/contactBackground.jpg",
+            ),
+          ),
+        ),
+        child: Center(
+          child: Image.asset("assets/images/ieee_mashup.jpeg",
+          fit:BoxFit.contain,
+          ),
         ),
       ),
     );
