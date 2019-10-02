@@ -27,7 +27,7 @@ class EventsPage extends StatelessWidget {
                   labelColor: Colors.white,
                   unselectedLabelColor: Color(0xFF01588D),
                   indicator: BoxDecoration(
-                    color: Color(0xFF01588D),
+                    color: Color(0xFF01527A),
                   ),
                   tabs: [
                     new Tab(

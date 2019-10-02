@@ -51,12 +51,7 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
       print(studentContact);
       print(studentMailID);
       if (studentName != "" && studentMailID != "" && studentSID != "" && studentContact != "") {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(),
-          ),
-        );
+        Navigator.pushReplacementNamed(context, HomePage.routeName);
       }
     });
   }
