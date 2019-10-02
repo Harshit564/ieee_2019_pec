@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'customIcons.dart';
 import 'data.dart';
 import 'dart:math';
 
@@ -28,15 +27,20 @@ class _MyAppState extends State<PastEvents> {
 
     return Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-                Color(0xFFFFFFFF),
-                Color(0xFF),
-              ],
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              tileMode: TileMode.clamp)),
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage(
+            "assets/images/contactBackground.jpg",
+          ),
+        ),
+      ),
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('Past Events'),
+          backgroundColor: Color(0xFF01588D),
+          centerTitle: true,
+          elevation: 0.0,
+        ),
         backgroundColor: Colors.transparent,
         body: SingleChildScrollView(
           child: Column(
@@ -51,25 +55,6 @@ class _MyAppState extends State<PastEvents> {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text("   Past Events",
-
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 46.0,
-                          fontFamily: "Calibre-Semibold",
-                          letterSpacing: 1.0,
-
-                        )),
-
-                  ],
-                ),
-              ),
-
               Stack(
                 children: <Widget>[
                   CardScrollWidget(currentPage),
@@ -96,6 +81,7 @@ class _MyAppState extends State<PastEvents> {
   }
 }
 
+// ignore: must_be_immutable
 class CardScrollWidget extends StatelessWidget {
   var currentPage;
   var padding = 20.0;

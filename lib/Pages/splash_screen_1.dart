@@ -18,12 +18,14 @@ class _SplashScreen1State extends State<SplashScreen1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Hero(
           tag: 'logo',
           child: CircleAvatar(
-            radius: 50.0,
-            child: Text('Logo1'),
+            radius: 100.0,
+            backgroundColor: Colors.white,
+            child: Image.asset('assets/images/IEEE-Region-pngFI.png'),
           ),
         ),
       ),

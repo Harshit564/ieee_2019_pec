@@ -3,15 +3,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'login_page_choice.dart';
 
-class MyProfilePage extends StatefulWidget {
+class MyOrganisationPage extends StatefulWidget {
   @override
-  _MyProfilePageState createState() => _MyProfilePageState();
+  _MyOrganisationPageState createState() => _MyOrganisationPageState();
 }
 
-class _MyProfilePageState extends State<MyProfilePage> {
-  String studentName = "";
-  String collegeName = "Punjab Engineering College";
-  String studentSID = "";
+class _MyOrganisationPageState extends State<MyOrganisationPage> {
+  String organisationName = "";
+  String userName = "Organisation1";
+  String email = "";
+  String contact="";
 
   SharedPreferences preferences;
 
@@ -39,8 +40,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
   Future<void> _getInfo() async {
     preferences = await SharedPreferences.getInstance();
     setState(() {
-      studentName = preferences.getString("studentName");
-      studentSID = preferences.getString("studentSID");
+      organisationName = preferences.getString("");
+      userName = preferences.getString("");
+      contact=preferences.getString("");
     });
   }
 
@@ -57,7 +59,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
       appBar: AppBar(
         backgroundColor: Color(0xFF01588D),
         elevation: 0.0,
-        title: Text('My Profile'),
+        title: Text('Organisation Profile'),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
@@ -85,7 +87,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
             ),
           ),
         ),
-
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Container(
@@ -108,10 +109,10 @@ class _MyProfilePageState extends State<MyProfilePage> {
                 SizedBox(
                   height: 50.0,
                 ),
-                _buildProfileCard(studentName),
-                _buildProfileCard(studentSID),
-                _buildProfileCard(collegeName),
-                _buildProfileCard("Proficiency"),
+                _buildProfileCard(organisationName),
+                _buildProfileCard(email),
+                _buildProfileCard(userName),
+                _buildProfileCard(contact),
                 SizedBox(
                   height: 25.0,
                 ),
@@ -122,7 +123,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
                     RaisedButton(
                       color: Colors.red,
                       textColor: Colors.white,
-
                       onPressed: () async {
                         await preferences.clear().then((val) {
                           Navigator.pushReplacement(
@@ -133,9 +133,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           );
                         });
                       },
-                      child:
-                      Text('Log Out'),
-
+                      child: Text('Log Out'),
                     ),
                   ],
                 ),

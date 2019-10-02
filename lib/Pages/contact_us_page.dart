@@ -83,7 +83,35 @@ class ContactUsPage extends StatelessWidget {
             _buildContactListTile(
               contact: "contact",
               email: "email",
+              imagePath: "assets/images/jatin.jpg",
+              name: "name",
+              position: "position",
+            ),
+            _buildContactListTile(
+              contact: "contact",
+              email: "email",
+              imagePath: "assets/images/team/Harshima.jpg",
+              name: "name",
+              position: "position",
+            ),
+            _buildContactListTile(
+              contact: "contact",
+              email: "email",
               imagePath: "assets/images/team/Shreya.JPG",
+              name: "name",
+              position: "position",
+            ),
+            _buildContactListTile(
+              contact: "contact",
+              email: "email",
+              imagePath: "assets/images/team/utkarsh.jpg",
+              name: "name",
+              position: "position",
+            ),
+            _buildContactListTile(
+              contact: "contact",
+              email: "email",
+              imagePath: "assets/images/prab.jpg",
               name: "name",
               position: "position",
             ),
@@ -104,7 +132,7 @@ class ContactUsPage extends StatelessWidget {
             _buildContactListTile(
               contact: "contact",
               email: "email",
-              imagePath: "assets/images/team/Harshima.jpg",
+              imagePath: "assets/images/team/Shagundeep Singh.jpg",
               name: "name",
               position: "position",
             ),
@@ -125,7 +153,7 @@ class ContactUsPage extends StatelessWidget {
             _buildContactListTile(
               contact: "contact",
               email: "email",
-              imagePath: "assets/images/team/Shagundeep Singh.JPG",
+              imagePath: "assets/images/team/Mukul.jpeg",
               name: "name",
               position: "position",
             ),

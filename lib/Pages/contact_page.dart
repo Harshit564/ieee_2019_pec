@@ -96,11 +96,39 @@ class ContactUsPage extends StatelessWidget {
           padding: EdgeInsets.all(8.0),
           children: <Widget>[
             _buildContactGridTile(
-              contact: "contact",
+              contact: "8607096404",
+              email: "email",
+              imagePath: "assets/images/jatin.jpg",
+              name: "Jatin Batra",
+              position: "IEEE Chairperson",
+            ),
+            _buildContactGridTile(
+              contact: "9466825806",
+              email: "email",
+              imagePath: "assets/images/team/Harshima.jpg",
+              name: "Harshima Singla",
+              position: "IEEE Vice-Chairperson",
+            ),
+            _buildContactGridTile(
+              contact: "9417814157",
               email: "email",
               imagePath: "assets/images/team/Shreya.JPG",
               name: "Shreya Garg",
               position: "IEEE CS Chairperson",
+            ),
+            _buildContactGridTile(
+              contact: "8968659922",
+              email: "email",
+              imagePath: "assets/images/team/utkarsh.jpg",
+              name: "Utkarsh Uppal",
+              position: "IEEE PES Chairperson",
+            ),
+            _buildContactGridTile(
+              contact: "contact",
+              email: "email",
+              imagePath: "assets/images/prab.jpg",
+              name: "Prabhnoor",
+              position: "IEEE WIE Chairperson",
             ),
             _buildContactGridTile(
               contact: "contact",
@@ -119,9 +147,9 @@ class ContactUsPage extends StatelessWidget {
             _buildContactGridTile(
               contact: "contact",
               email: "email",
-              imagePath: "assets/images/team/Harshima.jpg",
-              name: "Harshima Singla",
-              position: "Vice Chairperson",
+              imagePath: "assets/images/team/Shagundeep Singh.jpg",
+              name: "Shagundeep Singh",
+              position: "Tech Coord Head",
             ),
             _buildContactGridTile(
               contact: "contact",
@@ -140,9 +168,9 @@ class ContactUsPage extends StatelessWidget {
             _buildContactGridTile(
               contact: "contact",
               email: "email",
-              imagePath: "assets/images/team/Shagundeep Singh.JPG",
-              name: "Shagundeep Singh",
-              position: "Tech Coord Head",
+              imagePath: "assets/images/team/Mukul.jpeg",
+              name: "Mukul Saini",
+              position: "PR and Content Head",
             ),
           ],
         ),

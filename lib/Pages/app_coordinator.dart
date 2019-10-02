@@ -84,25 +84,32 @@ class AppCoordinator extends StatelessWidget {
       ),
     ),
     ),
-    child: ListView(
-    padding: EdgeInsets.all(8.0),
-    children: <Widget>[
-    _buildContactGridTile(
-    contact: "contact",
-    email: "email",
-    imagePath: "assets/images/my.jpeg",
-    name: "Harshit Singh",
-    position: "Frontend Developer",
-    ),
-    _buildContactGridTile(
-    contact: "contact",
-    email: "email",
-    imagePath: "assets/images/dhruv.jpeg",
-    name: "Dhruv Singla",
-    position: "Frontend Developer",
-    ),
-    ],
-    ),
+     child: ListView(
+      padding: EdgeInsets.all(8.0),
+      children: <Widget>[
+      _buildContactGridTile(
+      contact: "7007108095",
+      email: "email",
+      imagePath: "assets/images/Harshit.jpg",
+      name: "Harshit Singh",
+      position: "Frontend Developer",
+      ),
+       _buildContactGridTile(
+        contact: "8307134416",
+        email: "email",
+        imagePath: "assets/images/dhruv.jpeg",
+        name: "Dhruv Singla",
+        position: "Frontend Developer",
+        ),
+         _buildContactGridTile(
+          contact: "9463809630",
+          email: "email",
+           imagePath: "assets/images/jasjot.jpeg",
+           name: "Jasjot Singh",
+           position: "Frontend Developer",
+           ),
+        ],
+       ),
       ),
     );
   }

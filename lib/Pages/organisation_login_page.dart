@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'home_page.dart';
 
 class OrganisationLoginPage extends StatefulWidget {
@@ -10,13 +10,55 @@ class OrganisationLoginPage extends StatefulWidget {
 }
 
 class _OrganisationLoginPageState extends State<OrganisationLoginPage> {
-
-  final _organisationLoginFormKey = GlobalKey<FormState>();
+  SharedPreferences sharedPreferences;
+  String organisationName = "";
+  String userName = "Organisation1";
+  String email = "";
+  String contact="";
 
   final TextEditingController _nameInputController = TextEditingController();
   final TextEditingController _emailInputController = TextEditingController();
   final TextEditingController _contactInputController = TextEditingController();
   final TextEditingController _organisationInputController = TextEditingController();
+  final _organisationLoginFormKey = GlobalKey<FormState>();
+  Future<void> _getInfo() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+
+    organisationName = sharedPreferences.getString("OrganisationName") ?? "";
+    email = sharedPreferences.getString("Email") ?? "";
+    contact = sharedPreferences.getString("Contact") ?? "";
+    userName = sharedPreferences.getString("UserName") ?? "";
+  }
+
+  Future<void> _setData() async {
+    await sharedPreferences.setString("OrganisationName", _organisationInputController.text.toString().trim());
+    await sharedPreferences.setString(
+        "Email", _emailInputController.text.toString().trim());
+    await sharedPreferences.setString("Contact", _contactInputController.text.toString().trim());
+    await sharedPreferences.setString(
+        "UserName", _nameInputController.text.toString().trim());
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getInfo().then((val){
+      print(organisationName);
+      print(email);
+      print(contact);
+      print(userName);
+      if (organisationName != "" && email != "" && contact != "" && userName != "") {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,16 +95,17 @@ class _OrganisationLoginPageState extends State<OrganisationLoginPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please enter your name';
+                        return 'Please enter your Organisation Name';
                       }
                       return null;
                     },
-                    controller: _nameInputController,
+                    controller: _organisationInputController,
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.person),
-                      hintText: 'Username',
+                      prefixIcon: Icon(Icons.assignment_ind),
+                      hintText: 'Organisation Name',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
@@ -109,20 +152,20 @@ class _OrganisationLoginPageState extends State<OrganisationLoginPage> {
                     ),
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
-                    keyboardType: TextInputType.number,
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please enter your Organisation Name';
+                        return 'Please enter your Username';
                       }
                       return null;
                     },
-                    controller: _organisationInputController,
+                    controller: _nameInputController,
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.assignment_ind),
-                      hintText: 'Organisation Name',
+                      prefixIcon: Icon(Icons.person),
+                      hintText: 'Username',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),

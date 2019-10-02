@@ -9,6 +9,7 @@ import 'package:ieee_student/Pages/news_page.dart';
 import 'package:ieee_student/Pages/sessions_page.dart';
 import 'package:ieee_student/Pages/sponsors_page.dart';
 
+
 class HomePage extends StatefulWidget {
 
   static const String routeName = "/home-page";
@@ -17,7 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,14 +27,15 @@ class _HomePageState extends State<HomePage> {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
         ),
         centerTitle: true,
+        backgroundColor: Color(0xFF01588D),
       ),
       drawer: HomePageDrawer(),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFF89f7fe),
-              Color(0xFF66a6ff),
+              Color(0xFF01588D),
+              Color(0xFF01578f),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,

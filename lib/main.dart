@@ -9,17 +9,22 @@ import 'package:ieee_student/Pages/events_page.dart';
 import 'package:ieee_student/Pages/news_page.dart';
 import 'package:ieee_student/Pages/sessions_page.dart';
 import 'package:ieee_student/Pages/sponsors_page.dart';
-
 import 'Pages/splash_screen_1.dart';
+import 'package:flutter/services.dart';
 
 void main(){
-  runApp(MyApp());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp
+  ]).then((val){
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       title: 'IEEE Student',
       home: SplashScreen1(),
       debugShowCheckedModeBanner: false,

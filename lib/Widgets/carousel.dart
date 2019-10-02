@@ -52,18 +52,7 @@ class HomePageCarousel extends StatelessWidget {
           overlayShadowSize: 0.7,
         )
     );
-//    return Container(
-//      height: 250.0,
-//      child: ListView(
-//        scrollDirection: Axis.horizontal,
-//        children: <Widget>[
-//          _buildCarouselCard(imagePath: 'assets/images/carousels.jpeg'),
-//          _buildCarouselCard(imagePath: 'assets/images/carousels.jpeg'),
-//          _buildCarouselCard(imagePath: 'assets/images/carousels.jpeg'),
-//          _buildCarouselCard(imagePath: 'assets/images/carousels.jpeg'),
-//        ],
-//      ),
-//    );
+
 
   }
 }
