@@ -1,221 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:ieee_student/screens/cs_page.dart';
+import 'package:ieee_student/screens/pes_page.dart';
+import 'package:ieee_student/screens/wie_page.dart';
 
 class EventsPage extends StatelessWidget {
-  static const String routeName = "/events-page";
+  static const String routeName = '/tabar';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Events'),
+      appBar: new AppBar(
+        title: new Text('Events'),
+        backgroundColor: Color(0xFF01588D),
         centerTitle: true,
       ),
-      body: ListView(
-        children: <Widget>[
-          SizedBox(
-            height: 10.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 8.0,
-              right: 8.0,
-              bottom: 8.0,
-            ),
-            child: Card(
-              elevation: 6.0,
-              child: ListTile(
-                leading: Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: CircleAvatar(
-                    child: Icon(
-                      Icons.event_note,
-                      color: Colors.white,
-                      size: 20.0,
+      body: new DefaultTabController(
+        length: 3,
+        child: new Column(
+          children: <Widget>[
+            new Container(
+              constraints: BoxConstraints(maxHeight: 150.0),
+              child: new Material(
+                color: Colors.white,
+                child: new TabBar(
+                  indicatorColor: Color(0xFF01588D),
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Color(0xFF01588D),
+                  indicator: BoxDecoration(
+                    color: Color(0xFF01527A),
+                  ),
+                  tabs: [
+                    new Tab(
+                      icon: new Icon(Icons.computer),
+                      text: "CS",
+//                      child: Container(color: Color(0xFF01588D),),
                     ),
-                  ),
-                ),
-                title: Text(
-                  'Event Name',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                  ),
-                ),
-                subtitle: Padding(
-                  padding: const EdgeInsets.only(top: 5.0),
-                  child: Text(
-                    "Date : Event Date",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.grey.shade700,
+                    new Tab(
+                      icon: new Icon(Icons.mobile_screen_share),
+                      text: "WIE",
                     ),
-                  ),
+                    new Tab(
+                      icon: new Icon(Icons.alarm),
+                      text: "PES",
+                    ),
+                  ],
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 8.0,
-              right: 8.0,
-              bottom: 8.0,
-            ),
-            child: Card(
-              elevation: 6.0,
-              child: ListTile(
-                leading: Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: CircleAvatar(
-                    child: Icon(
-                      Icons.event_note,
-                      color: Colors.white,
-                      size: 20.0,
-                    ),
-                  ),
-                ),
-                title: Text(
-                  'Event Name',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                  ),
-                ),
-                subtitle: Padding(
-                  padding: const EdgeInsets.only(top: 5.0),
-                  child: Text(
-                    "Date : Event Date",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.grey.shade700,
-                    ),
-                  ),
-                ),
+            new Expanded(
+              child: new TabBarView(
+                children: [
+                  CSScreen(),
+                  WIEScreen(),
+                  PESScreen(),
+                ],
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 8.0,
-              right: 8.0,
-              bottom: 8.0,
-            ),
-            child: Card(
-              elevation: 6.0,
-              child: ListTile(
-                leading: Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: CircleAvatar(
-                    child: Icon(
-                      Icons.event_note,
-                      color: Colors.white,
-                      size: 20.0,
-                    ),
-                  ),
-                ),
-                title: Text(
-                  'Event Name',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                  ),
-                ),
-                subtitle: Padding(
-                  padding: const EdgeInsets.only(top: 5.0),
-                  child: Text(
-                    "Date : Event Date",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.grey.shade700,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 8.0,
-              right: 8.0,
-              bottom: 8.0,
-            ),
-            child: Card(
-              elevation: 6.0,
-              child: ListTile(
-                leading: Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: CircleAvatar(
-                    child: Icon(
-                      Icons.event_note,
-                      color: Colors.white,
-                      size: 20.0,
-                    ),
-                  ),
-                ),
-                title: Text(
-                  'Event Name',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                  ),
-                ),
-                subtitle: Padding(
-                  padding: const EdgeInsets.only(top: 5.0),
-                  child: Text(
-                    "Date : Event Date",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.grey.shade700,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 8.0,
-              right: 8.0,
-              bottom: 8.0,
-            ),
-            child: Card(
-              elevation: 6.0,
-              child: ListTile(
-                leading: Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: CircleAvatar(
-                    child: Icon(
-                      Icons.event_note,
-                      color: Colors.white,
-                      size: 20.0,
-                    ),
-                  ),
-                ),
-                title: Text(
-                  'Event Name',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                  ),
-                ),
-                subtitle: Padding(
-                  padding: const EdgeInsets.only(top: 5.0),
-                  child: Text(
-                    "Date : Event Date",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.grey.shade700,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

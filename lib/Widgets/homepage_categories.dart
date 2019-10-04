@@ -30,7 +30,7 @@ class HomePageCategories extends StatelessWidget {
         ),
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(10.0),
         border: Border.all(
           color: Colors.black54,
         ),

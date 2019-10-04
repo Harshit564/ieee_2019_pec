@@ -9,17 +9,29 @@ class SessionsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sessions'),
+        backgroundColor: Color(0xFF01588D),
+        centerTitle: true,
       ),
-      body: ListView.builder(
-        padding: EdgeInsets.symmetric(vertical: 18.0),
-        itemBuilder: (BuildContext context, int index) {
-          if (index % 2 == 0) {
-            return _buildCarousel(context, index ~/ 2);
-          }
-          else {
-            return Divider();
-          }
-        },
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(
+              "assets/images/contactBackground.jpg",
+            ),
+          ),
+        ),
+        child: ListView.builder(
+          padding: EdgeInsets.symmetric(vertical: 18.0),
+          itemBuilder: (BuildContext context, int index) {
+            if (index % 2 == 0) {
+              return _buildCarousel(context, index ~/ 2);
+            }
+            else {
+              return Divider();
+            }
+          },
+        ),
       ),
     );
   }
@@ -28,7 +40,7 @@ class SessionsPage extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text('Event $carouselIndex'),
+        Text('Event $carouselIndex',style: TextStyle(color: Colors.white),),
         SizedBox(
           // you may want to use an aspect ratio here for tablet support
           height: 200.0,
@@ -50,7 +62,7 @@ class SessionsPage extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.grey,
+          color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(5.0)),
         ),
       ),

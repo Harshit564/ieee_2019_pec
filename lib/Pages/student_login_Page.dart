@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'home_page.dart';
 
 class StudentLoginPage extends StatefulWidget {
@@ -10,6 +10,11 @@ class StudentLoginPage extends StatefulWidget {
 }
 
 class _StudentLoginPageState extends State<StudentLoginPage> {
+  SharedPreferences sharedPreferences;
+  String studentName = "";
+  String studentMailID = "";
+  String studentSID = "";
+  String studentContact = "";
 
   final TextEditingController _nameInputController = TextEditingController();
   final TextEditingController _emailInputController = TextEditingController();
@@ -18,12 +23,46 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
 
   final _studentLoginFormKey = GlobalKey<FormState>();
 
+  Future<void> _getInfo() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+
+    studentName = sharedPreferences.getString("studentName") ?? "";
+    studentMailID = sharedPreferences.getString("studentMailID") ?? "";
+    studentSID = sharedPreferences.getString("studentSID") ?? "";
+    studentContact = sharedPreferences.getString("studentContact") ?? "";
+  }
+
+  Future<void> _setData() async {
+    await sharedPreferences.setString("studentName", _nameInputController.text.toString().trim());
+    await sharedPreferences.setString(
+        "studentMailID", _emailInputController.text.toString().trim());
+    await sharedPreferences.setString("studentSID", _SIDInputController.text.toString().trim());
+    await sharedPreferences.setString(
+        "studentContact", _contactInputController.text.toString().trim());
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getInfo().then((val){
+      print(studentName);
+      print(studentSID);
+      print(studentContact);
+      print(studentMailID);
+      if (studentName != "" && studentMailID != "" && studentSID != "" && studentContact != "") {
+        Navigator.pushReplacementNamed(context, HomePage.routeName);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Student Login'),
         centerTitle: true,
+        backgroundColor: Color(0xFF01588D),
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(
@@ -134,22 +173,19 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
                 RaisedButton(
                   color: Colors.blueAccent,
                   onPressed: () {
-                    if(_studentLoginFormKey.currentState.validate()){
-                      print('Validated');
-                      Navigator.pushNamed(context, HomePage.routeName);
+                    if (_studentLoginFormKey.currentState.validate()) {
+                      _setData().then((val) {
+                        Navigator.pushReplacementNamed(context, HomePage.routeName);
+                      });
                     }
                   },
-
                   child: Text(
                     'Login',
                     style: TextStyle(
                       fontSize: 15.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
-
-
                     ),
-
                   ),
                 ),
               ],

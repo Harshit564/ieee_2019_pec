@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ieee_student/Pages/app_coordinator.dart';
 import 'package:ieee_student/Pages/our_family.dart';
 import 'package:ieee_student/Pages/past_events_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:ieee_student/Pages/my_profile_page.dart';
-//import 'package:ieee_student/Pages/contact_us_page.dart';
 import 'package:ieee_student/Pages/contact_page.dart';
 
 class HomePageDrawer extends StatefulWidget {
@@ -14,6 +14,24 @@ class HomePageDrawer extends StatefulWidget {
 
 class _HomePageDrawerState extends State<HomePageDrawer> {
   String launchUrl = "";
+  SharedPreferences sharedPreferences;
+  String studentName = "";
+  String studentEmailID = "";
+
+  Future<void> _getInfo() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      studentName = sharedPreferences.getString("studentName")?? "name";
+      studentEmailID = sharedPreferences.getString("studentMailID")?? "email";
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getInfo();
+  }
 
   Widget _buildDrawerListTile(
       {String title, IconData icon, Function function}) {
@@ -43,6 +61,9 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
+            decoration: BoxDecoration(
+              color: Color(0xFF01588D),
+            ),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
               child: Icon(
@@ -50,8 +71,8 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                 size: 30.0,
               ),
             ),
-            accountEmail: Text('pecsb.ieee@gmail.com'),
-            accountName: Text('IEEE PEC'),
+            accountEmail: Text(studentEmailID),
+            accountName: Text(studentName),
           ),
           _buildDrawerListTile(
             title: 'My Profile',
@@ -63,16 +84,15 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
           _buildDrawerListTile(
             title: 'Past Events',
             icon: Icons.event,
-
-            function: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => PastEvents())),
+            function: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => PastEvents())),
           ),
           Divider(),
           _buildDrawerListTile(
             title: 'Our Family',
             icon: Icons.tag_faces,
-            function: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => OurFamily())),
+            function: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => OurFamily())),
           ),
           Divider(),
           _buildDrawerListTile(
@@ -104,7 +124,8 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     GestureDetector(
-                      onTap: () => _launchUrl("https://www.facebook.com/IEEEPEC/"),
+                      onTap: () =>
+                          _launchUrl("https://www.facebook.com/IEEEPEC/"),
                       child: Padding(
                         padding: const EdgeInsets.only(
                           left: 8.0,
@@ -130,7 +151,7 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: ()  =>
+                      onTap: () =>
                           _launchUrl("https://www.twitter.com/IEEE_PEC/"),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8.0, right: 8.0),

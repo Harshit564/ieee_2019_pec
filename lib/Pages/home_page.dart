@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:ieee_student/Pages/workshop_page.dart';
 import 'package:ieee_student/Widgets/homepage_categories.dart';
 import 'package:ieee_student/Widgets/drawer.dart';
@@ -8,79 +10,145 @@ import 'package:ieee_student/Pages/events_page.dart';
 import 'package:ieee_student/Pages/news_page.dart';
 import 'package:ieee_student/Pages/sessions_page.dart';
 import 'package:ieee_student/Pages/sponsors_page.dart';
+import 'package:ieee_student/Widgets/icon_card.dart';
+import 'package:ieee_student/Widgets/image_cards.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class HomePage extends StatefulWidget {
-
   static const String routeName = "/home-page";
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+Future<bool> _willPopCallback(BuildContext context) async {
+  Alert(
+    context: context,
+    type: AlertType.warning,
+    title: "EXIT APP",
+    desc: "Do you want to exit the app ?",
+    buttons: [
+      DialogButton(
+        child: Text(
+          "Cancel",
+          style: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+        onPressed: () => Navigator.pop(context),
+        color: Color.fromRGBO(0, 179, 134, 1.0),
+      ),
+      DialogButton(
+        child: Text(
+          "Exit",
+          style: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+        onPressed: () => exit(0),
+        gradient: LinearGradient(colors: [
+          Color.fromRGBO(116, 116, 191, 1.0),
+          Color.fromRGBO(52, 138, 199, 1.0)
+        ]),
+      )
+    ],
+  ).show();
+}
 
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'IEEE Student Branch',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
-        ),
-        centerTitle: true,
-      ),
-      drawer: HomePageDrawer(),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF89f7fe),
-              Color(0xFF66a6ff),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+    return WillPopScope(
+      onWillPop: () => _willPopCallback(context),
+      child: Scaffold(
+        backgroundColor: Color(0xFF01527A),
+        appBar: AppBar(
+          title: Text(
+            'IEEE Student Branch',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
           ),
+          centerTitle: true,
+          backgroundColor: Color(0xFF01588D),
         ),
-        child: ListView(
+        drawer: HomePageDrawer(),
+        body: ListView(
           children: <Widget>[
             HomePageCarousel(),
             SizedBox(
-              height: 10.0,
+              height: 30.0,
             ),
-            HomePageCategories(
-              color: Colors.deepOrangeAccent,
-              icon: Icons.event_note,
-              title: 'Events',
-              function:() =>  Navigator.push(context, MaterialPageRoute(builder: (context) => EventsPage())),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                IconCard(
+                  iconData: Icons.event_note,
+                  text: 'Events',
+                  function: () => Navigator.pushNamed(context, EventsPage.routeName),
+                ),
+                IconCard(
+                  iconData: Icons.chrome_reader_mode,
+                  text: 'Workshops',
+                  function: () => Navigator.pushNamed(context, WorkshopPage.routeName),
+                ),
+                IconCard(
+                  iconData: Icons.apps,
+                  text: 'Sessions',
+                  function: () => Navigator.pushNamed(context, SessionsPage.routeName),
+                ),
+              ],
             ),
-            HomePageCategories(
-              color: Colors.orangeAccent,
-              icon: Icons.info,
-              title: 'Workshops',
-              function:() =>  Navigator.pushNamed(context, WorkshopPage.routeName),
+            SizedBox(
+              height: 20.0,
             ),
-            HomePageCategories(
-              color: Colors.green,
-              icon: Icons.apps,
-              title: 'Sessions',
-              function:() =>  Navigator.pushNamed(context, SessionsPage.routeName),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                IconCard(
+                  iconData: Icons.account_box,
+                  text: 'Sponsors',
+                  function: () => Navigator.pushNamed(context, SponsorsPage.routeName),
+                ),
+                IconCard(
+                  iconData: Icons.calendar_view_day,
+                  text: 'News',
+                  function: () => Navigator.pushNamed(context, NewsPage.routeName),
+                ),
+                IconCard(
+                  iconData: Icons.info,
+                  text: 'About Us',
+                  function: () => Navigator.pushNamed(context, AboutPage.routeName),
+                ),
+              ],
             ),
-            HomePageCategories(
-              color: Colors.redAccent,
-              icon: Icons.account_box,
-              title: 'Sponsors',
-              function:() =>  Navigator.pushNamed(context, SponsorsPage.routeName),
+            SizedBox(
+              height: 30.0,
             ),
-            HomePageCategories(
-              color: Colors.blueAccent,
-              icon: Icons.calendar_view_day,
-              title: 'News',
-              function:() =>  Navigator.pushNamed(context, NewsPage.routeName),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0,right: 175.0),
+              child: Container(
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Colors.blue[50],
+                ),
+                child: Text(
+                  'Upcoming Events',
+                  style: TextStyle( fontSize: 20.0, fontWeight: FontWeight.w500),
+                ),
+              ),
             ),
-            HomePageCategories(
-              color: Colors.orangeAccent,
-              icon: Icons.info,
-              title: 'About Us',
-              function:() =>  Navigator.pushNamed(context, AboutPage.routeName),
+            Container(
+              height: 250.0,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: <Widget>[
+                    ImageCards(),
+                    ImageCards(),
+                    ImageCards(),
+                    ImageCards(),
+                    ImageCards(),
+                    ImageCards(),
+                    ImageCards(),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
