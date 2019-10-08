@@ -31,12 +31,8 @@ class IndEventPage extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               child: Center(
-                child: Text(
-                  "Event Pic",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
+                child: 
+                  Image.asset("assets/images/code.jpg")
               ),
               height: 200.0,
               width: 200.0,

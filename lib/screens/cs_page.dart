@@ -64,6 +64,7 @@ class CSScreen extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => IndEventPage(
                     eventName: "Event Name",
+
                   ),
                 ),
               ),
