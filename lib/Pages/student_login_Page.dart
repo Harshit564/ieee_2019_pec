@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home_page.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class StudentLoginPage extends StatefulWidget {
   static const String routeName = "/student-login-page";
@@ -15,6 +18,13 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
   String studentMailID = "";
   String studentSID = "";
   String studentContact = "";
+
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  FirebaseUser currentUser;
+
+  bool isLoading = false;
+  bool isLoggedIn = false;
 
   final TextEditingController _nameInputController = TextEditingController();
   final TextEditingController _emailInputController = TextEditingController();
@@ -33,26 +43,117 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
   }
 
   Future<void> _setData() async {
-    await sharedPreferences.setString("studentName", _nameInputController.text.toString().trim());
+    await sharedPreferences.setString(
+        "studentName", _nameInputController.text.toString().trim());
     await sharedPreferences.setString(
         "studentMailID", _emailInputController.text.toString().trim());
-    await sharedPreferences.setString("studentSID", _SIDInputController.text.toString().trim());
+    await sharedPreferences.setString(
+        "studentSID", _SIDInputController.text.toString().trim());
     await sharedPreferences.setString(
         "studentContact", _contactInputController.text.toString().trim());
+  }
+
+  Future<void> isSignedIn() async {
+    this.setState(() {
+      isLoading = true;
+    });
+
+    sharedPreferences = await SharedPreferences.getInstance();
+
+    isLoggedIn = await googleSignIn.isSignedIn();
+    if (isLoggedIn) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ),
+      );
+    }
+
+    this.setState(() {
+      isLoading = false;
+    });
+  }
+
+  Future<Null> handleSignIn() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+
+    this.setState(() {
+      isLoading = true;
+    });
+
+    GoogleSignInAccount googleUser = await googleSignIn.signIn();
+    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    AuthResult _result = await firebaseAuth.signInWithCredential(credential);
+    FirebaseUser firebaseUser = _result.user;
+
+    if (firebaseUser != null) {
+      // Check is already sign up
+      final QuerySnapshot result = await Firestore.instance
+          .collection('users')
+          .where('id', isEqualTo: firebaseUser.uid)
+          .getDocuments();
+      final List<DocumentSnapshot> documents = result.documents;
+      if (documents.length == 0) {
+        // Update data to server if new user
+        Firestore.instance
+            .collection('users')
+            .document(firebaseUser.uid)
+            .setData({
+          'studentName': _nameInputController.text.toString().trim(),
+          'studentID': _SIDInputController.text.toString().trim(),
+          'firebaseID': firebaseUser.uid,
+          'emailID': _emailInputController.text.toString().trim(),
+          'contact': _contactInputController.text.toString().trim(),
+        });
+
+        // Write data to local
+        currentUser = firebaseUser;
+        await sharedPreferences.setString('studentName', _nameInputController.text.toString().trim());
+        await sharedPreferences.setString('studentID', _SIDInputController.text.toString().trim());
+        await sharedPreferences.setString('firebaseID', currentUser.uid);
+        await sharedPreferences.setString('emailID', _emailInputController.text.toString().trim());
+        await sharedPreferences.setString('contact', _contactInputController.text.toString().trim());
+      } else {
+        // Write data to local
+        await sharedPreferences.setString('studentName', documents[0]['studentName']);
+        await sharedPreferences.setString('studentID', documents[0]['studentID']);
+        await sharedPreferences.setString('firebaseID', documents[0]['firebaseID']);
+        await sharedPreferences.setString('emailID', documents[0]['emailID']);
+        await sharedPreferences.setString('contact', documents[0]['contact']);
+      }
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  HomePage()));
+    }
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getInfo().then((val){
-      print(studentName);
-      print(studentSID);
-      print(studentContact);
-      print(studentMailID);
-      if (studentName != "" && studentMailID != "" && studentSID != "" && studentContact != "") {
-        Navigator.pushReplacementNamed(context, HomePage.routeName);
-      }
+    isSignedIn().then((val){
+      _getInfo().then((val) {
+        print(studentName);
+        print(studentSID);
+        print(studentContact);
+        print(studentMailID);
+        if (studentName != "" &&
+            studentMailID != "" &&
+            studentSID != "" &&
+            studentContact != "") {
+          Navigator.pushReplacementNamed(context, HomePage.routeName);
+        }
+      });
     });
   }
 
@@ -175,7 +276,8 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
                   onPressed: () {
                     if (_studentLoginFormKey.currentState.validate()) {
                       _setData().then((val) {
-                        Navigator.pushReplacementNamed(context, HomePage.routeName);
+                        Navigator.pushReplacementNamed(
+                            context, HomePage.routeName);
                       });
                     }
                   },
