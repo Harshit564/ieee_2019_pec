@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ieee_student/Pages/app_coordinator.dart';
-import 'package:ieee_student/Pages/our_family.dart';
 import 'package:ieee_student/Pages/past_events_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -86,13 +85,6 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
             icon: Icons.event,
             function: () => Navigator.push(
                 context, MaterialPageRoute(builder: (context) => PastEvents())),
-          ),
-          Divider(),
-          _buildDrawerListTile(
-            title: 'Our Family',
-            icon: Icons.tag_faces,
-            function: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => OurFamily())),
           ),
           Divider(),
           _buildDrawerListTile(

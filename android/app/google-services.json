@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "538140487068",
+    "firebase_url": "https://ieee-pec-3ab10.firebaseio.com",
+    "project_id": "ieee-pec-3ab10",
+    "storage_bucket": "ieee-pec-3ab10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538140487068:android:1269f125d81b38141cec59",
+        "android_client_info": {
+          "package_name": "com.example.ieee_student"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538140487068-09q5m76rqel6r8e88k0r1fgj9e4hd490.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIdOP5OaMOMGdPW06V6Sa7wxAD6CKXjcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538140487068-09q5m76rqel6r8e88k0r1fgj9e4hd490.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

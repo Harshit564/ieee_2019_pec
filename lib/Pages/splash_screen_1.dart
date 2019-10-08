@@ -19,13 +19,13 @@ class _SplashScreen1State extends State<SplashScreen1> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Hero(
-          tag: 'logo',
-          child: CircleAvatar(
-            radius: 50.0,
-            child: Text('Logo1'),
-          ),
+        child: CircleAvatar(
+          backgroundColor: Colors.white,
+          radius: 100.0,
+
+            child: Image.asset("assets/images/R10.png"),
         ),
+        
       ),
     );
   }
